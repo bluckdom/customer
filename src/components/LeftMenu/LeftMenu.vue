@@ -3,7 +3,7 @@
     <ul>
       <li><router-link to="/myCustomer">我的客户</router-link></li>
       <li><router-link to="/myFollw">我关注的客户</router-link></li>
-      <li><router-link to="/myAllcus">我的全部客户</router-link></li>
+      <li><router-link to="/allCustomer">我的全部客户</router-link></li>
     </ul>
   </div>
 </template>
