@@ -1,5 +1,5 @@
 <template>
-
+  <div class="dfi">sdf</div>
 </template>
 
 <script>
@@ -13,14 +13,11 @@ export default {
     type: {
       type: Number,
       required: true
-    },
-    addEventdialogVisible: {
-      type: Blooean,
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>
