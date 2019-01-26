@@ -4,8 +4,9 @@
       <div class="col-xs-12">
         <div class="row">
           <searchTxt></searchTxt>
-          <orgs></orgs>
-          <psndoc></psndoc>
+          <div class="startsearch searchbx">
+            <el-button type="primary" round>搜索</el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -16,17 +17,13 @@
 </template>
 <script type="text/ecmascript-6">
 import searchTxt from '../Util/customername'
-import orgs from '../Util/orgs'
-import psndoc from '../Util/psndoc'
 export default {
   data () {
     return {
     }
   },
   components: {
-    'searchTxt': searchTxt,
-    'orgs': orgs,
-    'psndoc': psndoc
+    'searchTxt': searchTxt
   }
 }
 </script>
