@@ -2,8 +2,6 @@
   <div class="LeftMenu">
     <ul>
       <li><router-link to="/myCustomer">我的客户</router-link></li>
-      <li><router-link to="/myFollw">我关注的客户</router-link></li>
-      <li><router-link to="/allCustomer">我的全部客户</router-link></li>
     </ul>
   </div>
 </template>
@@ -16,7 +14,10 @@ export default {
   .LeftMenu{
     padding-top: 20px;
   }
-
+.LeftMenu a.router-link-active{
+  color: #428bca;
+  border-right: 2px solid #428bca;
+}
 .LeftMenu a{
   font-size: 14px;
   display: block;

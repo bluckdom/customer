@@ -8,52 +8,48 @@
       </div>
     </div>
     <div class="customerList">
-      <div class="cantainer">
-        <el-table style="width: 100%;"
-         :data="customerdata">
-        <el-table-column label="编号" prop="code" width="">
-        </el-table-column>
-        <el-table-column label="客户名称" prop="name" width="">
-        </el-table-column>
-        <el-table-column label="国家" prop="pk_country" width="">
-        </el-table-column>
-        <el-table-column label="地区" prop="pk_areacl" width="">
-        </el-table-column>
-        </el-table>
-        <el-pagination
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-size="pagesize"
-          layout="total, prev, pager, next, jumper"
-          :total="customerdata.length">
-        </el-pagination>
-      </div>
+      <customerList :customerdata = "customerdata" :currentPage = "currentPage" :Listloading = "Listloading" ref="customerList"></customerList>
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
-import searchTxt from '../Util/customername'
+  import searchTxt from '../Util/customername'
+  import customerList from '../Util/customerList'
 export default {
   data () {
     return {
       customerdata: [],
+      cusname: '',
+      saleorg: '',
+      psndoc: '',
       currentPage: 1,
-      pagesize: 10
+      Listloading: false
     }
   },
   methods: {
     fatherMethod (cusname, saleorg, psndoc) {
+      this.cusname = cusname;
+      this.saleorg = saleorg;
+      this.psndoc = psndoc;
+      this.search(1);
+    },
+    search (page) {
+      this.Listloading = true
+      this.currentPage = page
+      console.log(this.cusname)
+      console.log(this.saleorg)
+      console.log(this.psndoc)
       this.$http.get('/api/customer').then(res => {
+        const that = this
         res = res.body.customer
         this.customerdata = res
+        this.Listloading = false
       })
-    },
-    handleCurrentChange: function (currentPage) {
-      this.currentPage = currentPage
     }
   },
   components: {
-    'searchTxt': searchTxt
+    'searchTxt': searchTxt,
+    'customerList': customerList
   }
 }
 </script>
@@ -63,7 +59,7 @@ export default {
   }
   .searchbx{
     float: left;
-    max-width: 250px;
+    max-width: 350px;
     margin-left: 20px;
   }
   .customerList{

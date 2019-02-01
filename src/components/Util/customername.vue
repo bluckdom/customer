@@ -8,10 +8,9 @@
         <!--弹窗组件-->
         <el-dialog
           title="销售组织"
-          width="300px"
+          width="400px"
           class="add-event-dialog"
           :visible.sync="addEventdialogVisible"
-          @open="getOrgs"
           size="tiny">
           <div class="resultList">
             <div class="table">
@@ -44,10 +43,9 @@
         <!--弹窗组件-->
         <el-dialog
           title="业务员"
-          width="300px"
+          width="400px"
           class="add-event-dialog"
           :visible.sync="PsndocdialogVisible"
-          @open="getPsndoc"
           size="tiny">
           <div class="resultList">
             <div class="table">
@@ -56,12 +54,14 @@
                 @row-click="hadlePsndoc"
                 style="width: 100%">
                 <el-table-column
-                  prop="pk"
-                  label="主键">
+                  prop="cuserid"
+                  label="主键"
+                  width="300">
                 </el-table-column>
                 <el-table-column
-                  prop="name"
-                  label="姓名">
+                  prop="user_name"
+                  label="姓名"
+                  width="100">
                 </el-table-column>
               </el-table>
             </div>
@@ -71,15 +71,28 @@
       <!--业务员-->
       <div class="input-group">
         <span class="searchTxt">业务员:</span>
-        <span class="checkedTxt">{{Psndoccn}}<i class="deleteSalse dn glyphicon glyphicon-remove" @click="deletePsndoc()" v-if="Psndoc.length > 0"></i> </span>
+        <span class="checkedTxt">{{Psndoccn}}<i class="deleteSalse glyphicon glyphicon-remove dn" @click="deletePsndoc()" v-if="Psndoc.length > 0"></i> </span>
         <span class="glyphicon glyphicon-search" @click="PsndocdialogVisible=true"></span>
       </div>
+    </div>
+    <div class="startsearch searchbx">
+      <el-button type="primary" round @click="startsearch">搜索</el-button>
     </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
 export default {
   name: 'searchTxt',
+  created () {
+    this.$http.get('/test/customerVue/orgs.jsp').then(res => {
+      res = res.body
+      this.salesOrgs = res
+    })
+    this.$http.get('/test/customerVue/psndoc.jsp').then(res => {
+      res = res.body
+      this.psndocdata = res
+    })
+  },
   data () {
     return {
       cusname: '',
@@ -105,62 +118,17 @@ export default {
       this.saleorgcn = a.name
       this.addEventdialogVisible = !this.addEventdialogVisible
     },
-    getOrgs () {
-      this.salesOrgs = [
-        {
-          name: '销售组织1',
-          pk: '1111'
-        },
-        {
-          name: '销售组织2',
-          pk: '22222'
-        },
-        {
-          name: '销售组织3',
-          pk: '333333'
-        },
-        {
-          name: '销售组织4',
-          pk: '444444'
-        },
-        {
-          name: '销售组织5',
-          pk: '555555'
-        }
-      ]
-    },
     deletePsndoc () {
       this.Psndoccn = ''
       this.Psndoc = ''
     },
     hadlePsndoc (a) {
-      this.Psndoc = a.pk
-      this.Psndoccn = a.name
+      this.Psndoc = a.cuserid
+      this.Psndoccn = a.user_name
       this.PsndocdialogVisible = !this.PsndocdialogVisible
     },
-    getPsndoc () {
-      this.psndocdata = [
-        {
-          name: '姓名1',
-          pk: '1111'
-        },
-        {
-          name: '姓名2',
-          pk: '22222'
-        },
-        {
-          name: '姓名3',
-          pk: '333333'
-        },
-        {
-          name: '姓名4',
-          pk: '444444'
-        },
-        {
-          name: '姓名5',
-          pk: '555555'
-        }
-      ]
+    startsearch () {
+      this.$parent.fatherMethod(this.cusname, this.saleorg, this.Psndoc)
     }
   }
 }
@@ -172,11 +140,9 @@ export default {
   .el-pagination{
     text-align: center;
   }
-  .deleteSalse{font-size: 12px;
+  .deleteSalse{
+    font-size: 12px;
     cursor: pointer;
-    position: absolute;
-    right:-5px;
-    top:15px;
   }
   .searchTxt{
     font-size: 14px;
@@ -197,12 +163,7 @@ export default {
   }
   .el-pagination{
     text-align: center;
-  }.deleteSalse{font-size: 12px;
-     cursor: pointer;
-     position: absolute;
-     right:-5px;
-     top:15px;
-   }
+  }
   .searchTxt{
     font-size: 14px;
     line-height: 34px;
@@ -218,7 +179,10 @@ export default {
     position: relative;
   }
   .checkedTxt:hover  .deleteSalse{
-    display: block;
+    display: inline-block;
+  }
+  .checkedTxt .dn {
+    display: none;
   }
 
   .checkedTxt:hover,
