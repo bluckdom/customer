@@ -8,6 +8,13 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+
+
+const express = require('express')
+const app = express()
+const appData = require('../static/customer.json')
+
+
 const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
@@ -42,6 +49,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    before (app) {
+      app.get('/api/customer', (reg, res) => {
+        res.json({
+          code: 0,
+          customer:appData
+        })
+      })
     }
   },
   plugins: [
