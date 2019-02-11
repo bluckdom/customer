@@ -70,7 +70,7 @@
       </div>
       <!--业务员-->
       <div class="input-group">
-        <span class="searchTxt">业务员:</span>
+        <span class="searchTxt">业务员12312:</span>
         <span class="checkedTxt">{{Psndoccn}}<i class="deleteSalse dn glyphicon glyphicon-remove" @click="deletePsndoc()" v-if="Psndoc.length > 0"></i> </span>
         <span class="glyphicon glyphicon-search" @click="PsndocdialogVisible=true"></span>
       </div>
