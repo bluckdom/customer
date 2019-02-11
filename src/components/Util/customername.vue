@@ -1,7 +1,7 @@
 <template>
   <div class="searchWrapper">
     <div class="searchbx">
-      <el-input v-model="cusname" placeholder="BEW客户名称"></el-input>
+      <el-input v-model="cusname" placeholder="客户名称"></el-input>
     </div>
     <div class="searchbx">
       <div class="dialogBox">
