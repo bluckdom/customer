@@ -56,12 +56,12 @@
                 <el-table-column
                   prop="cuserid"
                   label="主键"
-                  width="300">
+                  width="200">
                 </el-table-column>
                 <el-table-column
                   prop="user_name"
                   label="姓名"
-                  width="100">
+                  width="">
                 </el-table-column>
               </el-table>
             </div>

@@ -94,8 +94,8 @@
             <div class="col-xs-12">
               <div class="row">
                 <div class="col-xs-6">
-                  <div class="col-xs-4 tr custlabel">备注：</div>
-                  <div class="col-xs-8">{{customer.memo}}</div>
+                  <div class="col-xs-4 tr custlabel">注册资金：</div>
+                  <div class="col-xs-8">{{customer.registerfund}}</div>
                 </div>
                 <div class="col-xs-6">
                   <div class="col-xs-4 tr custlabel">地区分类：</div>
@@ -157,9 +157,13 @@
                   <div class="col-xs-4 tr custlabel">WEB：</div>
                   <div class="col-xs-8">{{customer.url}}</div>
                 </div>
-                <div class="col-xs-6">
-                  <div class="col-xs-4 tr custlabel">注册资金：</div>
-                  <div class="col-xs-8">{{customer.registerfund}}</div>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="col-xs-2 tr custlabel">备注：</div>
+                  <div class="col-xs-10">{{customer.memo}}</div>
                 </div>
               </div>
             </div>
@@ -209,9 +213,14 @@
         customerid () {
           this.loading = true
           const that = this
-          this.$http.get('http://localhost/custinfo.json?id=' + this.customerid).then((res) => {
+          this.$http.get('/test/customerVue/custinfo.jsp?pk=' + this.customerid).then((res) => {
             res = res.body
-            that.customer = res
+            const errno = res.errno
+            if (errno === 1) {
+              that.customer = res
+            } else {
+              that.$message.error(res.txt);
+            }
             that.loading = false
           })
         }

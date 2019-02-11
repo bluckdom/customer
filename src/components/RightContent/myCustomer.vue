@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="customerList">
-      <customerList :customerdata = "customerdata" :currentPage = "currentPage" :Listloading = "Listloading" ref="customerList"></customerList>
+      <customerList :customerdata = "customerdata" :currentPage = "currentPage" :Listloading = "Listloading" :count = "count" ref="customerList"></customerList>
     </div>
   </div>
 </template>
@@ -23,8 +23,12 @@ export default {
       saleorg: '',
       psndoc: '',
       currentPage: 1,
-      Listloading: false
+      Listloading: false,
+      count: 0
     }
+  },
+  created () {
+    this.search(1)
   },
   methods: {
     fatherMethod (cusname, saleorg, psndoc) {
@@ -36,12 +40,10 @@ export default {
     search (page) {
       this.Listloading = true
       this.currentPage = page
-      console.log(this.cusname)
-      console.log(this.saleorg)
-      console.log(this.psndoc)
-      this.$http.get('/api/customer').then(res => {
+      this.$http.get('/test/customerVue/customerList.jsp?page=' + page + '&name=' + this.cusname + '&org=' + this.saleorg + '&psndoc=' + this.psndoc).then(res => {
         const that = this
-        res = res.body.customer
+        this.count = res.body.num
+        res = res.body.cust
         this.customerdata = res
         this.Listloading = false
       })

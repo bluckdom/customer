@@ -12,7 +12,6 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 const express = require('express')
 const app = express()
-const appData = require('../static/customer.json')
 
 
 const portfinder = require('portfinder')

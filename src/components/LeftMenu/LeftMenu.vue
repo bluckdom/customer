@@ -1,7 +1,7 @@
 <template>
   <div class="LeftMenu">
     <ul>
-      <li><router-link to="/myCustomer">我的客户</router-link></li>
+      <li><router-link to="/myCustomer">所有客户</router-link></li>
     </ul>
   </div>
 </template>

@@ -16,6 +16,10 @@ export default new Router({
       path: '/allCustomer',
       name: 'allCustomer',
       component: allCustomer
+    },
+    {
+      path: '/',
+      redirect: 'myCustomer'
     }
   ]
 })
