@@ -40,7 +40,8 @@ export default {
     search (page) {
       this.Listloading = true
       this.currentPage = page
-      this.$http.get('/test/customerVue/customerList.jsp?page=' + page + '&name=' + this.cusname + '&org=' + this.saleorg + '&psndoc=' + this.psndoc).then(res => {
+      // /test/customerVue/customerList.jsp
+      this.$http.get('http://localhost/List.json?page=' + page + '&name=' + this.cusname + '&org=' + this.saleorg + '&psndoc=' + this.psndoc).then(res => {
         const that = this
         this.count = res.body.num
         res = res.body.cust

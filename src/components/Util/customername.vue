@@ -112,11 +112,13 @@ export default {
     deleteSalseorg () {
       this.saleorgcn = ''
       this.saleorg = ''
+      this.$parent.fatherMethod(this.cusname, this.saleorg, this.Psndoc)
     },
     hadleRowClick (a) {
       this.saleorg = a.pk
       this.saleorgcn = a.name
       this.addEventdialogVisible = !this.addEventdialogVisible
+      this.$parent.fatherMethod(this.cusname, this.saleorg, this.Psndoc)
     },
     deletePsndoc () {
       this.Psndoccn = ''
