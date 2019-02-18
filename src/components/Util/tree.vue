@@ -42,83 +42,83 @@
         tempvalue: '',
         dialogVisible: false,
         modal: false,
-        data2: [{
-          children: [{
-            disabled: false,
-            id: 3,
-            label: "子级1_1",
-            parentid: 1
-          }, {
-            children: [{
-              disabled: false,
-              id: 5,
-              label: "子级1_2_1",
-              parentid: 4
-            }],
-            disabled: true,
-            id: 4,
-            label: "子级1_2",
-            parentid: 1
-          }],
-          disabled: true,
-          id: 1,
-          label: "父级1",
-          parentid: 0
-        }, {
-          disabled: false,
-          id: 2,
-          label: "父级2",
-          parentid: 0
-        }],
+        data2: [],
         defaultProps: {
           children: 'children',
           label: 'label'
         }
       }
     },
-    props: ['property', 'propertyname', 'type', 'propername'],
+    props: ['property', 'propertyname', 'type', 'propername', 'pk_org', 'data'],
     created () {
-      this.propervalue = this.property // 主键
-      this.propernamecn = this.propername // 中文
+      this.propervalue = this.property ? this.property : '' // 主键
+      this.propernamecn = this.propername ? this.propername : '' // 中文
+      // http://localhost/depart.json
+      // /test/customerVue/getTreeDepartment.jsp
+      const pkorg = this.pk_org ? this.pk_org : ''
+      this.$http.get('/test/customerVue/getTreeDepartment.jsp?pk_org=' + pkorg).then((res) => {
+        res = res.body
+        this.data2 = res
+      })
     },
     methods: {
       deletepro () {
         const that = this
-        that.$confirm('确定要删除吗？', '确认', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-          center: true
-        }).then(() => {
-          console.log('删除执行AJAX')
-          that.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          that.propervalue = ''
+        if (!that.data.plus) {
+          that.$confirm('确定要删除吗？', '确认', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            center: true
+          }).then(() => {
+            this.propervalue = ''
+            this.propernamecn = ''
+            this.$refs.departlist.setCheckedKeys([])
+            this.saveTree('', this.type)
+          })
+        } else {
+          this.propervalue = ''
+          this.propernamecn = ''
+          this.$refs.departlist.setCheckedKeys([])
+        }
+      },
+      saveTree (key, type) {
+        // 执行AJAX
+        let data = {
+          customer_pk: this.data.pk_customer,
+          value: key,
+          name: this.propertyname,
+          type: type
+        }
+        if (this.data.pk_custfinance) {
+          data.pk_custfinance = this.data.pk_custfinance
+        }
+
+        this.$http.post('/test/customerVue/editProperty.jsp', data).then((res) => {
+          res = res.body
+          if (res.errno === 1) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!' + key + '--' + type
+            });
+          }
         })
       },
       selectDepart () {
         this.dialogVisible = false
         var tree = this.$refs.departlist.getCheckedNodes()
-        console.log(tree)
-        if (tree.length > 0) {
+        if (tree.length > 0 && this.propervalue !== tree[0].id) {
           this.propervalue = tree[0].id
           this.propernamecn = tree[0].label
-          this.$message({
-            type: 'success',
-            message: '删除成功!' + this.propernamecn + '--' + this.propervalue
-          });
+          if (!this.data.plus) {
+            this.saveTree(this.propervalue, this.type)
+          }
         }
       },
       checkChange (item, node, self) {
         if (node === true) {
           this.$refs.departlist.setCheckedKeys([item.id])
           this.tempvalue = item.id
-        } else {
-          if (this.tempvalue === '' + item.id) {
-            this.$refs.departlist.setCheckedKeys([item.id])
-          }
         }
       },
       nodeClick (item, node, self) {

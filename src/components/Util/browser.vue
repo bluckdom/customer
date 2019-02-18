@@ -29,34 +29,36 @@
       return {
         showdelete: false,
         propervalue: '',
+        pk: '',
         showEdit: false,
         restaurants: [],
         state1: ''
       }
     },
-    props: ['property', 'propertyname', 'type'],
+    props: ['property', 'propertyname', 'type', 'data'],
     methods: {
       deletepro () {
         const that = this
-        that.$confirm('确定要删除吗？', '确认', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-          center: true
-        }).then(() => {
-          console.log('删除执行AJAX')
-          that.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-          that.propervalue = ''
-        })
+        if (this.data && this.data.plus) {
+          this.propervalue = ''
+          this.pk = ''
+        } else {
+          that.$confirm('确定要删除吗？', '确认', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            center: true
+          }).then(() => {
+            this.propervalue = ''
+            this.pk = ''
+            this.saveBrowser('', this.type)
+          }).catch(() => {})
+        }
       },
       querySearch (queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         // 调用 callback 返回建议列表的数据
-        console.log(results)
         cb(results);
       },
       createFilter (queryString) {
@@ -68,12 +70,42 @@
         this.showEdit = false
         this.state1 = item.value
         this.propervalue = item.value
-        this.$message({
-          type: 'success',
-          message: '修改成功!' + item.pk_key + this.type
-        });
+        this.pk = item.pk_key
+        if (this.data && !this.data.plus) {
+          this.saveBrowser(item.pk_key, this.type)
+        }
+        if (this.type === 'base') {
+          this.saveBrowser(item.pk_key, this.type)
+        }
+      },
+      saveBrowser (key, type) {
+        // 执行AJAX
+        const that = this
+        let data = {
+          customer_pk: this.data.pk_customer,
+          value: key,
+          name: this.propertyname,
+          type: type
+        }
+        if (this.data.pk_custfinance) {
+          data.pk_custfinance = this.data.pk_custfinance
+        }
+        if (this.data.pk_custcreditctl) {
+          data.pk_custcreditctl = this.data.pk_custcreditctl
+        }
+        this.$http.post('/test/customerVue/editProperty.jsp', data).then((res) => {
+          res = res.body
+          if (res.errno === 1) {
+            this.$message({
+              type: 'success',
+              message: '修改成功!'
+            });
+          }
+        })
       },
       openBrowser () {
+        //         /test/customerVue/getBaseproperty.jsp
+        // http://localhost/baseperty.json
         this.$http.get('/test/customerVue/getBaseproperty.jsp?type=' + this.type + '&name=' + this.propertyname).then((res) => {
           res = res.body
           this.restaurants = res
@@ -89,7 +121,7 @@
       }
     },
     created () {
-      this.propervalue = this.property
+      this.propervalue = this.property ? this.property : ''
     }
   }
 </script>
