@@ -58,21 +58,4 @@ export default {
 }
 </script>
 <style>
-  .myCustomerWrapper{
-    padding: 20px;
-  }
-  .searchbx{
-    float: left;
-    max-width: 350px;
-    margin-left: 20px;
-  }
-  .customerList{
-    position: absolute;
-    top:80px;
-    left:20px;
-    right:20px;
-    bottom:20px;
-    overflow-y: scroll;
-  }
-
 </style>

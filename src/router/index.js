@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import myCustomer from '@/components/RightContent/myCustomer'
-import allCustomer from '@/components/RightContent/allCustomer'
+import newCustomer from '@/components/RightContent/newCustomer'
 
 Vue.use(Router)
 
@@ -13,9 +13,9 @@ export default new Router({
       component: myCustomer
     },
     {
-      path: '/allCustomer',
-      name: 'allCustomer',
-      component: allCustomer
+      path: '/newCustomer',
+      name: 'newCustomer',
+      component: newCustomer
     },
     {
       path: '/',

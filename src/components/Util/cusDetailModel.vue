@@ -2,7 +2,7 @@
     <div class="cusDetailModel" v-loading="loading">
       <div class="oh topclose mt20" v-if="!loading">
         <i class="el-icon-circle-close-outline icon" @click="closeModel"></i>
-        <filedinput :property="customer.name" propertyname="name" :data="customer"></filedinput>
+        <div class="topcusname"><filedinput :property="customer.name" propertyname="name" :data="customer"></filedinput></div>
       </div>
       <div class="cusDetail" v-if="!loading">
         <el-tabs value="first">
@@ -134,6 +134,43 @@
                 </div>
           </div>
           </el-tab-pane>
+          <el-tab-pane label="销售组织" name="five">
+            <el-table class="tab-panel"
+                      :data="customer.custsale">
+              <el-table-column label="所属集团" prop="pk_group" width="100">
+              </el-table-column>
+              <el-table-column label="所属销售组织" width="250">
+                <template slot-scope="props">
+                  <browser :property="props.row.pk_org" propertyname="pk_org" type="custsale" ref="pk_org" :data="props.row"></browser>
+                </template>
+              </el-table-column>
+              <el-table-column label="结算财务组织" width="250">
+                <template slot-scope="props">
+                  <browser :property="props.row.pk_financeorg" propertyname="pk_financeorg" type="custsale" ref="pk_financeorg" :data="props.row"></browser>
+                </template>
+              </el-table-column>
+              <el-table-column label="利润中心" width="250" v-if="customer.showmore">
+                <template slot-scope="props">
+                  <browser :property="props.row.pk_liabilitycenter" propertyname="pk_liabilitycenter" type="custsale" ref="pk_liabilitycenter" :data="props.row"></browser>
+                </template>
+              </el-table-column>
+              <el-table-column label="专管业务员" width="150" v-if="customer.showmore">
+                <template slot-scope="props">
+                  <browser :property="props.row.respperson" propertyname="respperson" type="custsale" ref="respperson" :data="props.row"></browser>
+                </template>
+              </el-table-column>
+              <el-table-column label="" width="150" v-if="!customer.showmore">
+                <template slot-scope="props">
+                  <a @click="customer.showmore = true">显示更多</a>
+                </template>
+              </el-table-column>
+              <el-table-column width="40" :render-header="addRowClickSale">
+                <template slot-scope="props">
+                  <delete-button :data="props.row" type="custsale" ref="button"></delete-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
           <el-tab-pane label="财务组织" name="second">
             <el-table class="tab-panel"
                       :data="customer.custfinance">
@@ -244,6 +281,7 @@
     import fieldCheckbox from './fieldCheckbox'
     import deleteButton from './deleteButton'
     import departree from './tree'
+    import 'static/css/mycustomer.css'
     export default {
       data () {
         return {
@@ -331,6 +369,21 @@
             }
           })
         },
+        addRowClickSale (h, {column}) {
+        const that = this
+        return h('el-button', {
+          class: 'el-icon-plus el-button el-button--primary el-button--mini is-circle',
+          style: 'color:#fff;',
+          on: {
+            click () {
+              const list = {
+                plus: true
+              }
+              that.customer.custsale.push(list)
+            }
+          }
+        })
+      },
         closeModel () {
           this.$parent.closeDetail()
         },
@@ -357,6 +410,13 @@
               fax: this.$refs.fax.propervalue,
               email: this.$refs.email.propervalue,
               vjob: this.$refs.vjob.propervalue
+            }
+          } else if (type === 'custsale') {
+            data = {
+              pk_org: this.$refs.pk_org.pk,
+              pk_financeorg: this.$refs.pk_financeorg.pk,
+              pk_liabilitycenter: this.$refs.pk_liabilitycenter.pk,
+              respperson: this.$refs.respperson.pk
             }
           }
           data.type = type
@@ -403,80 +463,5 @@
 </script>
 
 <style>
-  .cusDetailModel{
-    position: fixed;
-    width: 800px;
-    right:-100%;
-    bottom:0;
-    top:80px;
-    background: #f9f9f9;
-    transition:all 0.5s ease-in-out 0s;
-    z-index: 11;
-    border-left: 1px solid #ddd;
-    box-shadow: -3px 0 4px rgba(0,0,0,0.1);
-  }
-  .topclose{
-    padding-left: 25px;
-  }
-  .cusDetailModel.on{
-    right: 0;
-  }
-  .cusDetail{
-    position: absolute;
-    left:20px;
-    right:20px;
-    top:70px;
-    bottom:15px;
-  }
-  .cusDetailModel .icon{
-    font-size: 2em;
-    cursor: pointer;
-    margin-right:10px;
-    margin-top: 2px;
-    float: left;
-  }
-  .tab-panel{
-    width: 100%;
-    text-align: center;
-  }
-  .el-table__row .el-table .cell{
-    line-height: 30px;
-  }
-  .tab-panel.el-table th>.cell{
-    line-height: 150%;
-  }
-  .cusDetailModel .icon:hover{
-    color:#409EFF
-  }
-  .rowborder .col-xs-8{
-    font-size: 14px;
-    line-height: 25px;
-    height: 25px;
-  }
-  .rowborder{border:1px solid #ddd;
-  border-radius: 3px;
-  box-shadow: #ddd;
-  background: #fff;
-  }
-  .custlabel{
-    font-family: 'PingFangSC-Light','Hiragino Sans GB',Microsoft YaHei;
-    color:#999;
-    text-shadow:0 0 1px #999;
-    font-size: 13px;
-    width: 100px;
-    float: left;
-    line-height: 25px;
-  }
-  .cusDetail .el-tabs__content{
-    position: absolute;
-    top:55px;
-    left: 0;
-    right: 0;
-    bottom: 5px;
-    overflow: scroll;
-  }
-  .rowborder > .row > div{
-    border-bottom: 1px solid #ddd;
-    padding: 5px 0;
-  }
+
 </style>

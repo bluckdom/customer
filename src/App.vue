@@ -81,6 +81,11 @@ export default {
     text-align: center;
     cursor: pointer;
     z-index: 11;
+    opacity: .6;
+    transition:all 0.2s ease-in-out 0s;
+  }
+  .leftMenuWrapper .siderbar-ctrl-btn:hover{
+    opacity: 1;
   }
   .bodyheight {
       height: 100%;

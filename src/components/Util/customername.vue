@@ -78,6 +78,7 @@
     <div class="startsearch searchbx">
       <el-button type="primary" round @click="startsearch">搜索</el-button>
     </div>
+    <a href="/cowork/CoworkMain.jsp?layout=1&mainid=&typeid=9&type=all&jointype=&labelid=&name=&coworkid=" target="_blank" class="customertl mt10">客户功能讨论 <i class="el-icon-question"></i></a>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -136,62 +137,5 @@ export default {
 }
 </script>
 <style>
-  .el-dialog__header,.el-dialog__body{
-    border-bottom: 1px solid #ddd;
-  }
-  .el-pagination{
-    text-align: center;
-  }
-  .deleteSalse{
-    font-size: 12px;
-    cursor: pointer;
-  }
-  .searchTxt{
-    font-size: 14px;
-    line-height: 34px;
-  }
-  .glyphicon-search{
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  .checkedTxt{font-size: 14px;
-    line-height: 34px;
-    padding:10px 15px 10px 10px;
-    position: relative;
-  }
-  .el-dialog__header,.el-dialog__body{
-    border-bottom: 1px solid #ddd;
-  }
-  .el-pagination{
-    text-align: center;
-  }
-  .searchTxt{
-    font-size: 14px;
-    line-height: 34px;
-  }
-  .glyphicon-search{
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  .checkedTxt{font-size: 14px;
-    line-height: 34px;
-    padding:10px 15px 10px 10px;
-    position: relative;
-  }
-  .checkedTxt:hover  .deleteSalse{
-    display: inline-block;
-  }
-  .checkedTxt .dn {
-    display: none;
-  }
 
-  .checkedTxt:hover,
-  .glyphicon-search:hover{
-    color: #428bca;
-  }
-  .el-dialog .el-table__header-wrapper{
-    display: none;
-  }
 </style>

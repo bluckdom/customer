@@ -2,6 +2,7 @@
   <div class="LeftMenu">
     <ul>
       <li><router-link to="/myCustomer">所有客户</router-link></li>
+      <li><router-link to="/newCustomer">新建客户</router-link></li>
     </ul>
   </div>
 </template>

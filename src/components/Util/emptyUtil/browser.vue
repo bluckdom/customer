@@ -4,6 +4,7 @@
       <div class="prowrapper">
         <span>{{propervalue}}</span>
         <i class="el-icon-close deletepro dn" @click="deletepro" v-if="propervalue && propervalue.length > 0"></i>
+        <el-input v-model="pk" type="hidden" class="dn"></el-input>
       </div>
       <i class="el-icon-edit" @click="openBrowser"></i>
     </div>
@@ -16,6 +17,7 @@
         placeholder="请输入内容"
         @select="handleSelect"
         @blur="closeBrowser"
+        name="propertyname"
         ref="browserinput"
       >
       </el-autocomplete>
@@ -35,25 +37,12 @@
         state1: ''
       }
     },
-    props: ['property', 'propertyname', 'type', 'data'],
+    props: ['propertyname', 'type'],
     methods: {
       deletepro () {
         const that = this
-        if (this.data && this.data.plus) {
-          this.propervalue = ''
-          this.pk = ''
-        } else {
-          that.$confirm('确定要删除吗？', '确认', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning',
-            center: true
-          }).then(() => {
-            this.propervalue = ''
-            this.pk = ''
-            this.saveBrowser('', this.type)
-          }).catch(() => {})
-        }
+        this.propervalue = ''
+        this.pk = ''
       },
       querySearch (queryString, cb) {
         var restaurants = this.restaurants;
@@ -71,45 +60,11 @@
         this.state1 = item.value
         this.propervalue = item.value
         this.pk = item.pk_key
-        if (this.data && !this.data.plus) {
-          this.saveBrowser(item.pk_key, this.type)
-        }
-        if (this.type === 'base') {
-          this.saveBrowser(item.pk_key, this.type)
-        }
-      },
-      saveBrowser (key, type) {
-        // 执行AJAX
-        const that = this
-        let data = {
-          customer_pk: this.data.pk_customer,
-          value: key,
-          name: this.propertyname,
-          type: type
-        }
-        if (this.data.pk_custfinance) {
-          data.pk_custfinance = this.data.pk_custfinance
-        }
-        if (this.data.pk_custcreditctl) {
-          data.pk_custcreditctl = this.data.pk_custcreditctl
-        }
-        if (this.data.pk_custsale) {
-          data.pk_custsale = this.data.pk_custsale
-        }
-        this.$http.post('/test/customerVue/editProperty.jsp', data).then((res) => {
-          res = res.body
-          if (res.errno === 1) {
-            this.$message({
-              type: 'success',
-              message: '修改成功!'
-            });
-          }
-        })
       },
       openBrowser () {
         //         /test/customerVue/getBaseproperty.jsp
         // http://localhost/baseperty.json
-        this.$http.get('/test/customerVue/getBaseproperty.jsp?type=' + this.type + '&name=' + this.propertyname).then((res) => {
+        this.$http.get('http://localhost/baseperty.json?type=' + this.type + '&name=' + this.propertyname).then((res) => {
           res = res.body
           this.restaurants = res
           this.showEdit = true
@@ -124,7 +79,7 @@
       }
     },
     created () {
-      this.propervalue = this.property ? this.property : ''
+      this.propervalue = ''
     }
   }
 </script>

@@ -1,0 +1,135 @@
+.input-label {
+  float: left;
+  width: 100px;
+  font-size: 14px;
+  padding-left: 15px;
+  height: 30px;
+  text-align: right;
+  margin-top: 20px;
+}
+.inputwrapper{
+  margin:20px 0 0 110px;
+}
+.newCuswrapper{
+  padding: 0 20px;
+}
+
+.probox{
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+}
+.prowrapper{
+  float: left;
+  position: relative;
+  padding-right: 20px;
+}
+.prowrapper .deletepro{
+  display: none;
+  position: absolute;
+  right: 0;
+  top:4px
+}
+.prowrapper:hover .deletepro{
+  display: inline-block;
+}
+.prowrapper:hover{
+  color:#108ee9;
+  cursor: pointer;
+}
+.newDetail  .controls:hover .el-icon-edit {
+  display: inline-block;
+}
+.newDetail  .controls .el-icon-edit:hover{
+  border-color:#108ee9 ;
+  color:#108ee9 ;
+}
+.newDetail .controls .el-icon-edit{
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 50%;
+  border:1px solid #ddd;
+  color: #ddd;
+  cursor: pointer;
+}
+.name{
+  line-height: 20px;
+}
+.pk_key{
+  font-size: 12px;
+  color: #999;
+}
+body .el-autocomplete-suggestion li{
+  line-height: 30px;
+  border-bottom: 1px dashed #ddd;
+}
+.proecidtbrower .el-input__inner{
+  height: 30px;
+  line-height: 30px;
+}
+
+.deleteAddButton i{
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+}
+.deleteAddButton .el-icon-check{
+  background: #85ce61;
+}
+.rowborder .customerinput,.el-table__row .customerinput{
+  width: 100%;
+  font-size: 14px;
+  text-shadow: none;
+  color: #000;
+  border:1px solid #fff;
+}
+.customerinput{
+  font-size: 16px;
+  color: #999;
+  text-shadow: 0 0 2px #999;
+  white-space: nowrap;
+  line-height: 23px;
+  width: 100%;
+  padding-left: 5px;
+  border:1px solid #ddd;
+  background: #ddd;
+  color: #000;
+  border-radius: 3px;
+  transition:all 0.2s ease-in-out 0s;
+}
+input:focus{
+  outline: 0;
+}
+.rowborder .customerinput:hover{
+  background: #fcfcfc;
+}
+.rowborder .customerinput:focus{
+  border:1px solid rgba(82,168,236,0.8);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  background: #fff;
+  outline:0;
+}
+.departdree .el-icon-edit{
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  color: #ddd;
+  cursor: pointer;
+  display: none;
+}
+.departdree:hover .el-icon-edit{
+  display: inline-block;
+}
+.el-icon-edit:hover{
+  border-color: #108ee9;
+  color: #108ee9;
+}
+.departdree{
+  width: 100%;
+  height: 35px;
+}

@@ -1,0 +1,285 @@
+.myCustomerWrapper{
+  padding: 20px;
+}
+.searchbx{
+  float: left;
+  max-width: 350px;
+  margin-left: 20px;
+}
+.customerList{
+  position: absolute;
+  top:80px;
+  left:20px;
+  right:20px;
+  bottom:20px;
+  overflow-y: scroll;
+}
+table{
+  width: 100%;
+}
+.cusDetailModel{
+  position: fixed;
+  width: 800px;
+  right:-100%;
+  bottom:0;
+  top:80px;
+  background: #f9f9f9;
+  transition:all 0.5s ease-in-out 0s;
+  z-index: 11;
+  border-left: 1px solid #ddd;
+  box-shadow: -3px 0 4px rgba(0,0,0,0.1);
+}
+.topclose{
+  padding-left: 25px;
+}
+.cusDetailModel.on{
+  right: 0;
+}
+.cusDetail{
+  position: absolute;
+  left:20px;
+  right:20px;
+  top:70px;
+  bottom:15px;
+}
+.cusDetailModel .icon{
+  font-size: 2em;
+  cursor: pointer;
+  margin-right:10px;
+  margin-top: 2px;
+  float: left;
+}
+ .tab-panel{
+  width: 100%;
+  text-align: center;
+}
+.cusDetail .el-table__row .el-table .cell{
+  line-height: 30px;
+}
+.cusDetail .tab-panel.el-table th>.cell{
+  line-height: 150%;
+}
+.cusDetail .cusDetailModel .icon:hover{
+  color:#409EFF
+}
+.cusDetail .rowborder .col-xs-8{
+  font-size: 14px;
+  line-height: 25px;
+  height: 25px;
+}
+.cusDetail .rowborder{border:1px solid #ddd;
+  border-radius: 3px;
+  box-shadow: #ddd;
+  background: #fff;
+}
+.cusDetail .custlabel{
+  font-family: 'PingFangSC-Light','Hiragino Sans GB',Microsoft YaHei;
+  color:#999;
+  text-shadow:0 0 1px #999;
+  font-size: 13px;
+  width: 100px;
+  float: left;
+  line-height: 25px;
+}
+.cusDetail .el-tabs__content{
+  position: absolute;
+  top:55px;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  overflow: scroll;
+}
+.cusDetail .rowborder > .row > div{
+  border-bottom: 1px solid #ddd;
+  padding: 5px 0;
+}
+
+
+.cusDetail .probox{
+  display: inline-block;
+  line-height: normal;
+  position: relative;
+}
+.cusDetail .prowrapper{
+  display: inline-block;
+  position: relative;
+  padding-right: 20px;
+}
+.cusDetail .prowrapper .deletepro{
+  display: none;
+  position: absolute;
+  right: 0;
+  top:4px
+}
+.cusDetail .prowrapper:hover .deletepro{
+  display: inline-block;
+}
+.cusDetail .prowrapper:hover{
+  color:#108ee9;
+  cursor: pointer;
+}
+.cusDetail .controls:hover .el-icon-edit {
+  display: inline-block;
+}
+.cusDetail .controls .el-icon-edit:hover{
+  border-color:#108ee9 ;
+  color:#108ee9 ;
+}
+.cusDetail .controls .el-icon-edit{
+  display: none;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 50%;
+  border:1px solid #ddd;
+  color: #ddd;
+  cursor: pointer;
+}
+.cusDetail .name{
+  line-height: 20px;
+}
+.cusDetail .pk_key{
+  font-size: 12px;
+  color: #999;
+}
+body .el-autocomplete-suggestion li{
+  line-height: 30px;
+  border-bottom: 1px dashed #ddd;
+}
+.cusDetail .proecidtbrower .el-input__inner{
+  height: 30px;
+  line-height: 30px;
+}
+.cusDetail .el-dialog__header,.cusDetail .el-dialog__body{
+  border-bottom: 1px solid #ddd;
+}
+.cusDetailModel .topcusname{
+  margin-left: 40px;
+}
+.cusDetail .el-pagination{
+  text-align: center;
+}
+.cusDetail .deleteSalse{
+  font-size: 12px;
+  cursor: pointer;
+}
+body a{
+  color: #666;
+  text-underline: none;
+}
+body a:focus {
+  text-decoration: none;
+}
+ .searchTxt{
+  font-size: 14px;
+  line-height: 34px;
+}
+ .glyphicon-search{
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+ .customertl{
+  float: right;
+  font-size: 14px;
+}
+.cusDetail .checkedTxt{font-size: 14px;
+  line-height: 34px;
+  padding:10px 15px 10px 10px;
+  position: relative;
+}
+.cusDetail .el-dialog__header,.el-dialog__body{
+  border-bottom: 1px solid #ddd;
+}
+.cusDetail .el-pagination{
+  text-align: center;
+}
+.cusDetail .searchTxt{
+  font-size: 14px;
+  line-height: 34px;
+}
+.cusDetail .glyphicon-search{
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.cusDetail .checkedTxt{font-size: 14px;
+  line-height: 34px;
+  padding:10px 15px 10px 10px;
+  position: relative;
+}
+.cusDetail .checkedTxt:hover  .deleteSalse{
+  display: inline-block;
+}
+.cusDetail .checkedTxt .dn {
+  display: none;
+}
+
+.cusDetail .checkedTxt:hover,
+.cusDetail .glyphicon-search:hover{
+  color: #428bca;
+}
+.cusDetail .el-dialog .el-table__header-wrapper{
+  display: none;
+}
+
+.cusDetail .rowborder .customerinput,.el-table__row .customerinput{
+  width: 100%;
+  font-size: 14px;
+  text-shadow: none;
+  color: #000;
+  border:1px solid #fff;
+}
+.cusDetail .customerinput{
+  font-size: 16px;
+  color: #999;
+  text-shadow: 0 0 2px #999;
+  white-space: nowrap;
+  line-height: 23px;
+  border:1px solid #f9f9f9;
+  width: 80%;
+  padding-left: 5px;
+  background: none;
+  border-radius: 3px;
+  transition:all 0.2s ease-in-out 0s;
+}
+input:focus{
+  outline: 0;
+}
+.cusDetail .customerinput:hover,.cusDetail .customerinput:focus{
+  border:1px solid #ddd;
+  background: #ddd;
+  color: #000;
+}
+.cusDetail .rowborder .customerinput:hover{
+  background: #fcfcfc;
+}
+.cusDetail .rowborder .customerinput:focus{
+  border:1px solid rgba(82,168,236,0.8);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  background: #fff;
+  outline:0;
+}
+.cusDetail .departdree .el-icon-edit{
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  color: #ddd;
+  cursor: pointer;
+  display: none;
+}
+.cusDetail .departdree:hover .el-icon-edit{
+  display: inline-block;
+}
+.cusDetail .el-icon-edit:hover{
+  border-color: #108ee9;
+  color: #108ee9;
+}
+.cusDetail .departdree{
+  width: 100%;
+  height: 35px;
+}
