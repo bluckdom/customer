@@ -57,7 +57,7 @@
       this.propernamecn = this.propername ? this.propername : '' // 中文
       // http://localhost/depart.json
       // /test/customerVue/getTreeDepartment.jsp
-      this.$http.get('http://localhost/depart.json').then((res) => {
+      this.$http.get('/test/customerVue/getTreeDepartment.jsp').then((res) => {
         res = res.body
         this.data2 = res
       })

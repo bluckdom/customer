@@ -99,7 +99,7 @@
           if (res.errno === 1) {
             this.$message({
               type: 'success',
-              message: '删除成功!' + key + '--' + type
+              message: '部门修改成功!'
             });
           }
         })

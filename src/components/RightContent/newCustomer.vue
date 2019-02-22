@@ -4,7 +4,7 @@
       <el-button type='primary' round @click='saveCus'>保存</el-button>
     </div>
     <div class='oh topclose'>
-      <div class='input-label'>客户名称：</div>
+      <div class='input-label'><span>客户名称：</span></div>
       <div class='inputwrapper'><filedinput propertyname='name' id='name'></filedinput></div>
     </div>
     <div class='newDetail'>
@@ -14,14 +14,18 @@
             <div class='row'>
               <div class='col-xs-12'>
                 <div class='input-label'>地址：</div>
-                <div class='inputwrapper'><filedinput propertyname='corpaddress' id='corpaddress'></filedinput></div>
+                <div class='inputwrapper'><filedinput propertyname='def2' id='def2'></filedinput></div>
+              </div>
+              <div class='col-xs-6'>
+                <div class='input-label'>纳税识别号：</div>
+                <div class='inputwrapper'><filedinput propertyname='taxpayerid' id='taxpayerid'></filedinput></div>
               </div>
               <div class='col-xs-6'>
                 <div class='input-label'>联系方式：</div>
                 <div class='inputwrapper'><filedinput propertyname='tel1' id='tel1'></filedinput></div>
               </div>
               <div class='col-xs-6'>
-                <div class='input-label'>客户类型：</div>
+                <div class='input-label'><span>客户类型：</span></div>
                 <div class='inputwrapper'>
                   <browser type='base' propertyname='custprop' id='custprop'></browser>
                 </div>
@@ -45,7 +49,7 @@
                 </div>
               </div>
               <div class='col-xs-6'>
-                <div class='input-label'>国家地区：</div>
+                <div class='input-label'><span>国家地区：</span></div>
                 <div class='inputwrapper'>
                   <browser type='base' propertyname='pk_country' id='pk_country'></browser>
                 </div>
@@ -57,7 +61,7 @@
                 </div>
               </div>
               <div class='col-xs-6'>
-                <div class='input-label'>客户税类：</div>
+                <div class='input-label'><span>客户基本分类：</span></div>
                 <div class='inputwrapper'>
                   <browser type='base' propertyname='pk_custclass' id='pk_custclass'></browser>
                 </div>
@@ -69,19 +73,19 @@
                 </div>
               </div>
               <div class='col-xs-6'>
-                <div class='input-label'>数据格式：</div>
+                <div class='input-label'><span>数据格式：</span></div>
                 <div class='inputwrapper'>
                   <browser type='base' propertyname='pk_format' id='pk_format'></browser>
                 </div>
               </div>
               <div class='col-xs-6'>
-                <div class='input-label'>组织：</div>
+                <div class='input-label'><span>所属组织：</span></div>
                 <div class='inputwrapper'>
                   <browser type='base' propertyname='pk_org' id='pk_org'></browser>
                 </div>
               </div>
               <div class='col-xs-6'>
-                <div class='input-label'>时区：</div>
+                <div class='input-label'><span>时区：</span></div>
                 <div class='inputwrapper'>
                   <browser type='base' propertyname='pk_timezone' id='pk_timezone'></browser>
                 </div>
@@ -253,9 +257,17 @@ export default {
   methods: {
     saveCus () {
       const that = this
+      if (this.G('name') === '' || this.G('custprop') === '' || this.G('pk_country') === '' || this.G('pk_custclass') === '' || this.G('pk_format') === '' || this.G('pk_org') === '' || this.G('pk_timezone') === '') {
+        that.$message({
+          type: 'error',
+          message: '红色标题为必填项!'
+        })
+        return false
+      }
       let data = {
         name: this.G('name'),
-        corpaddress: this.G('corpaddress'),
+        def2: this.G('def2'),
+        taxpayerid: this.G('taxpayerid'),
         tel1: this.G('tel1'),
         custprop: this.G('custprop'),
         ename: this.G('ename'),
@@ -363,12 +375,12 @@ export default {
       $('#linkman tbody tr').each(function () {
         let $t = $(this)
         let $td = $t.children('td')
-        let name = $td.eq(0).find("input").val()
-        let cell = $td.eq(1).find("input").val()
-        let phone = $td.eq(2).find("input").val()
-        let fax = $td.eq(3).find("input").val()
-        let email = $td.eq(4).find("input").val()
-        let vjob = $td.eq(5).find("input").val()
+        let name = $td.eq(0).find('input').val()
+        let cell = $td.eq(1).find('input').val()
+        let phone = $td.eq(2).find('input').val()
+        let fax = $td.eq(3).find('input').val()
+        let email = $td.eq(4).find('input').val()
+        let vjob = $td.eq(5).find('input').val()
 
         if (name === '') {
           linkmanBoolean = true
@@ -391,8 +403,28 @@ export default {
         return false
       }
       data.linkman = linkman
-
-      console.log(linkman)
+      this.$http.post('/test/customerVue/addCus.jsp', data).then((res) => {
+        res = res.body
+        const errno = res.errno
+        let type = 'error'
+        let txt = res.txt
+        if (errno === '1') {
+          type = 'success'
+          txt += 'pk:' + res.pk
+        }
+        that.$message({
+          type: type,
+          message: txt
+        })
+        if (errno === '1') {
+          window.location.reload()
+        }
+      }).catch(function () {
+        that.$message({
+          type: 'error',
+          message: '系统错误,请联系管理员处理!'
+        })
+      })
     },
     G (id) {
      return $('#' + id).find('input').val()

@@ -154,6 +154,9 @@ body .el-autocomplete-suggestion li{
 .cusDetail .el-dialog__header,.cusDetail .el-dialog__body{
   border-bottom: 1px solid #ddd;
 }
+.prowrapper .dn{
+  display: none;
+}
 .cusDetailModel .topcusname{
   margin-left: 40px;
 }

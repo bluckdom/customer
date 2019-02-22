@@ -11,11 +11,15 @@
               <div class="row">
                   <div class="col-xs-12">
                     <div class="tr custlabel">地址：</div>
-                    <div class="col-xs-8"><filedinput :property="customer.corpaddress" propertyname="corpaddress" :data="customer" ></filedinput></div>
+                    <div class="col-xs-8"><filedinput :property="customer.def2" propertyname="def2" :data="customer" ></filedinput></div>
                   </div>
-                    <div class="col-xs-6">
+                  <div class="col-xs-6">
                     <div class="tr custlabel">联系方式：</div>
                     <div class="col-xs-8"><filedinput :property="customer.tel1" propertyname="tel1" :data="customer"></filedinput></div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="tr custlabel">纳税识别号：</div>
+                    <div class="col-xs-8"><filedinput :property="customer.taxpayerid" propertyname="taxpayerid" :data="customer"></filedinput></div>
                   </div>
                   <div class="col-xs-6">
                     <div class="tr custlabel">创建人：</div>
@@ -390,12 +394,26 @@
         saveTr (type) {
           let data = {}
           if (type === 'custfinance') {
+            if (this.$refs.pk_org.pk === '') {
+              this.$message({
+                type: 'error',
+                message: '请选择财务组织!'
+              })
+              return false
+            }
             data = {
               pk_org: this.$refs.pk_org.pk,
               pk_payterm: this.$refs.pk_payterm.pk,
               pk_respdept1: this.$refs.pk_respdept1.propervalue
             }
           } else if (type === 'custcreditctl') {
+            if (this.$refs.ctl_pk_org.pk === '') {
+              this.$message({
+                type: 'error',
+                message: '请选择信用控制域!'
+              })
+              return false
+            }
             data = {
               pk_org: this.$refs.ctl_pk_org.pk,
               creditlevel: this.$refs.creditlevel.pk,
@@ -403,6 +421,13 @@
               freeofacclmtcheck: this.$refs.freeofacclmtcheck.propervalue
             }
           } else if (type === 'linkman') {
+            if (this.$refs.name.propervalue === '') {
+              this.$message({
+                type: 'error',
+                message: '请填写联系人姓名!'
+              })
+              return false
+            }
             data = {
               name: this.$refs.name.propervalue,
               cell: this.$refs.cell.propervalue,
@@ -412,6 +437,13 @@
               vjob: this.$refs.vjob.propervalue
             }
           } else if (type === 'custsale') {
+            if (this.$refs.name.propervalue === '') {
+              this.$message({
+                type: 'error',
+                message: '请选择销售组织!'
+              })
+              return false
+            }
             data = {
               pk_org: this.$refs.pk_org.pk,
               pk_financeorg: this.$refs.pk_financeorg.pk,
@@ -426,13 +458,13 @@
             if (res.errno === 1) {
               this.$message({
                 type: 'success',
-                message: '修改成功!'
+                message: '添加成功!'
               })
               this.getCustomer()
             } else {
               this.$message({
                 type: 'error',
-                message: '删除失败，请联系管理员!'
+                message: '添加失败，请联系管理员!'
               })
             }
           })
@@ -442,7 +474,7 @@
           const that = this
           // /test/customerVue/custinfo.jsp
           // http://localhost/custinfo.json
-          this.$http.get('/test/customerVue/custinfo.jsp?pk=' + this.customerid).then((res) => {
+          this.$http.get('http://localhost/custinfo.json?pk=' + this.customerid).then((res) => {
             res = res.body
             const errno = res.errno
             if (errno === 1) {

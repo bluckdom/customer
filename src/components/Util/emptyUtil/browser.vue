@@ -64,7 +64,7 @@
       openBrowser () {
         //         /test/customerVue/getBaseproperty.jsp
         // http://localhost/baseperty.json
-        this.$http.get('http://localhost/baseperty.json?type=' + this.type + '&name=' + this.propertyname).then((res) => {
+        this.$http.get('/test/customerVue/getBaseproperty.jsp?type=' + this.type + '&name=' + this.propertyname).then((res) => {
           res = res.body
           this.restaurants = res
           this.showEdit = true
