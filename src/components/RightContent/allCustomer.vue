@@ -19,7 +19,7 @@
   </div>
 </template>
 <script type="text/ecmascript-6">
-  import searchTxt from '../Util/myCusVue/customername'
+  import searchTxt from '../Util/customername'
   import customerList from '../Util/customerList'
   import newCustomer from './newCustomer'
 export default {
@@ -36,24 +36,13 @@ export default {
     }
   },
   created () {
-    const that = this
-    this.$http.get('/test/customerVue/getHRM.jsp').then((res) => {
-      res = res.body
-      if (res.errno === 1) {
-        this.psndoc = res.value
-        this.search(1)
-      } else {
-        that.$message({
-          type: 'error',
-          message: res.txt
-        })
-      }
-    })
+    this.search(1)
   },
   methods: {
-    fatherMethod (cusname, saleorg) {
+    fatherMethod (cusname, saleorg, psndoc) {
       this.cusname = cusname;
       this.saleorg = saleorg;
+      this.psndoc = psndoc;
       this.search(1);
     },
     search (page) {

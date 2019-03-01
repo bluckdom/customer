@@ -1,5 +1,5 @@
 <template>
-    <el-checkbox :checked="propervalue == 'Y' ? true : false" @change="changeInput"></el-checkbox>
+    <el-checkbox :checked="propervalue == 'Y' ? true : false" @change="changeInput" :disabled="readonly"></el-checkbox>
 </template>
 <script type="text/ecmascript-6">
   export default {
@@ -8,7 +8,7 @@
         propervalue: ''
       }
     },
-    props: ['property', 'propertyname', 'type', 'data'],
+    props: ['property', 'propertyname', 'type', 'data', 'readonly'],
     methods: {
       changeInput (e) {
         const val = e ? 'Y' : 'N'

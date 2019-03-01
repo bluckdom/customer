@@ -3,11 +3,11 @@
     <div class="probox" v-show="!showEdit">
       <div class="prowrapper">
         <span>{{propervalue}}</span>
-        <i class="el-icon-close deletepro dn" @click="deletepro" v-if="propervalue && propervalue.length > 0"></i>
+        <i class="el-icon-close deletepro dn" @click="deletepro" v-if="propervalue && propervalue.length > 0" v-show="!readonly"></i>
       </div>
-      <i class="el-icon-edit" @click="openBrowser"></i>
+      <i class="el-icon-edit" @click="openBrowser" v-show="!readonly"></i>
     </div>
-    <div class="proecidtbrower" v-show="showEdit">
+    <div class="proecidtbrower" v-show="showEdit" v-if="!readonly">
       <el-tooltip content="请选择相应类别" placement="right">
         <el-autocomplete
         class="inline-input"
@@ -35,7 +35,7 @@
         state1: ''
       }
     },
-    props: ['property', 'propertyname', 'type', 'data'],
+    props: ['property', 'propertyname', 'type', 'data', 'readonly'],
     methods: {
       deletepro () {
         const that = this

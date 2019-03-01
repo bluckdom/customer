@@ -32,6 +32,11 @@ table{
 .topclose{
   padding-left: 25px;
 }
+.salesti{
+  line-height: 30px;
+  border-bottom: 1px solid #409EFF;
+  font-size: 16px;
+}
 .cusDetailModel.on{
   right: 0;
 }
@@ -46,7 +51,6 @@ table{
   font-size: 2em;
   cursor: pointer;
   margin-right:10px;
-  margin-top: 2px;
   float: left;
 }
  .tab-panel{
@@ -81,7 +85,7 @@ table{
   float: left;
   line-height: 25px;
 }
-.cusDetail .el-tabs__content{
+.cusDetail > .el-tabs > .el-tabs__content{
   position: absolute;
   top:55px;
   left: 0;
@@ -94,11 +98,18 @@ table{
   padding: 5px 0;
 }
 
-
 .cusDetail .probox{
   display: inline-block;
   line-height: normal;
   position: relative;
+  line-height: 25px;
+}
+.morelinkman{
+  font-size: 14px;
+  cursor: pointer;
+}
+.morelinkman:hover{
+  color: #409EFF;
 }
 .cusDetail .prowrapper{
   display: inline-block;
@@ -151,7 +162,7 @@ body .el-autocomplete-suggestion li{
   height: 30px;
   line-height: 30px;
 }
-.cusDetail .el-dialog__header,.cusDetail .el-dialog__body{
+.customerWrapper .el-dialog__header,.cusDetail .el-dialog__body{
   border-bottom: 1px solid #ddd;
 }
 .prowrapper .dn{
@@ -207,19 +218,19 @@ body a:focus {
   cursor: pointer;
   margin-left: 10px;
 }
-.cusDetail .checkedTxt{font-size: 14px;
+.checkedTxt{font-size: 14px;
   line-height: 34px;
   padding:10px 15px 10px 10px;
   position: relative;
 }
-.cusDetail .checkedTxt:hover  .deleteSalse{
+.checkedTxt:hover  .deleteSalse{
   display: inline-block;
 }
-.cusDetail .checkedTxt .dn {
+.checkedTxt .dn {
   display: none;
 }
 
-.cusDetail .checkedTxt:hover,
+.checkedTxt:hover,
 .cusDetail .glyphicon-search:hover{
   color: #428bca;
 }
@@ -285,4 +296,120 @@ input:focus{
 .cusDetail .departdree{
   width: 100%;
   height: 35px;
+}
+.createcut{
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  border-right: 3px;
+  background: rgba(0, 0, 0, .2);
+  font-size: 20px;
+  color: #fff;
+  line-height: 50px;
+  text-align: center;
+  z-index: 111;
+  right: 20px;
+  top:50%;
+  cursor: pointer;
+}
+.createcut:hover{
+  background: rgba(0, 0, 0, .3);
+}
+.linkman .topcusname .linkinput{
+  background: none;
+  border:0;
+}
+.linkman .topcusname .linkinput:hover,.linkman .topcusname .linkinput:focus {
+  background: #ddd;
+}
+.linkmanbase{
+  border:1px solid #ddd;
+  border-radius: 3px;
+}
+.linkmanbase .col-xs-6{
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+.linkmanbase .col-xs-6:last-child{
+  border-bottom: 0;
+}
+.linkmanbase .labelti{
+  float: left;
+  width: 80px;
+  text-align: right;
+  line-height: 32px;
+  margin-bottom: 0;
+  font-weight: normal;
+  color: #666;
+}
+.linkmanbase .linkinput{
+  background: none;
+  line-height: 30px;
+  border:1px solid #fff;
+  text-shadow:none;
+  width: 200px;
+  margin-left: 10px;
+  padding-left: 15px;
+}
+.linkmanbase .linkinput:hover{
+  border:1px solid #ccc;
+  background: #fefefe;
+}
+.linkmanbase .linkinput:focus{
+  border:1px solid rgba(82,168,236,0.8);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+.contact{
+  border-radius: 3px;
+  border:1px solid #ddd;
+  padding: 15px 0;
+  background: #fff;
+}
+.contactWrapper{
+  padding: 0 15px;
+}
+.contactWrapper .contactcontent textarea{
+  font-size: 12px;
+}
+.contactWrapper .nextdate{
+  display: inline-block;
+  padding: 0 10px ;
+}
+.contactlist li{
+  padding-top: 10px;
+  margin: 10px -15px 0;
+  border-top: 1px dashed #ddd;
+  position: relative;
+}
+.contactDetail{
+  margin-left: 68px;
+}
+.mCS_img_loaded{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  position: absolute;
+  left: 15px;
+  top: 15px;
+}
+.contactDetail{
+  font-size: 14px;
+}
+.contactcontent{
+  line-height: 180%;
+}
+.userNameWrapper a{
+  color: #409EFF;
+}
+.userName{
+  padding: 0 5px;
+}
+.contactdate{
+  color: #999;
+}
+.Cus_nextdatetime{
+  padding-left: 20px;
+}
+.pl10{
+  padding-left: 10px;
 }

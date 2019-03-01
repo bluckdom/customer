@@ -1,6 +1,6 @@
 <template>
   <span>
-    <el-button type="danger" icon="el-icon-minus" size="mini" circle @click="deletefun"></el-button>
+    <el-button type="danger" icon="el-icon-minus" size="mini" circle @click="deletefun" :disabled="readonly"></el-button>
   </span>
 </template>
 <script type="text/ecmascript-6">
@@ -9,7 +9,7 @@
       return {
       }
     },
-    props: ['data', 'type'],
+    props: ['data', 'type', 'readonly'],
     methods: {
       deletefun (e) {
         let path = e.path

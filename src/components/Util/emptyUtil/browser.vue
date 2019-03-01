@@ -1,27 +1,36 @@
 <template>
   <div class="controls">
-    <div class="probox" v-show="!showEdit">
-      <div class="prowrapper">
-        <span>{{propervalue}}</span>
-        <i class="el-icon-close deletepro dn" @click="deletepro" v-if="propervalue && propervalue.length > 0"></i>
-        <el-input v-model="pk" type="hidden" class="dn"></el-input>
+    <div  v-if="!readonly">
+      <div class="probox" v-show="!showEdit">
+        <div class="prowrapper">
+          <span>{{propervalue}}</span>
+          <i class="el-icon-close deletepro dn" @click="deletepro" v-if="propervalue && propervalue.length > 0"></i>
+          <el-input v-model="pk" class="dn"></el-input>
+        </div>
+        <i class="el-icon-edit" @click="openBrowser"></i>
       </div>
-      <i class="el-icon-edit" @click="openBrowser"></i>
+      <div class="proecidtbrower" v-show="showEdit">
+        <el-tooltip content="请选择相应类别" placement="right">
+          <el-autocomplete
+          class="inline-input"
+          v-model="state1"
+          :fetch-suggestions="querySearch"
+          placeholder="请输入内容"
+          @select="handleSelect"
+          @blur="closeBrowser"
+          name="propertyname"
+          ref="browserinput"
+        >
+        </el-autocomplete>
+        </el-tooltip>
+      </div>
     </div>
-    <div class="proecidtbrower" v-show="showEdit">
-      <el-tooltip content="请选择相应类别" placement="right">
-        <el-autocomplete
-        class="inline-input"
-        v-model="state1"
-        :fetch-suggestions="querySearch"
-        placeholder="请输入内容"
-        @select="handleSelect"
-        @blur="closeBrowser"
-        name="propertyname"
-        ref="browserinput"
-      >
-      </el-autocomplete>
-      </el-tooltip>
+    <div  v-if="readonly">
+      <div class="probox">
+        <div class="prowrapper">
+          <span>{{propervalue}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,18 +40,18 @@
       return {
         showdelete: false,
         propervalue: '',
-        pk: '',
         showEdit: false,
         restaurants: [],
+        pk: '',
         state1: ''
       }
     },
-    props: ['propertyname', 'type'],
+    props: ['propertyname', 'type', 'defaultValue', 'readonly'],
     methods: {
       deletepro () {
-        const that = this
         this.propervalue = ''
         this.pk = ''
+        this.changeBrowser()
       },
       querySearch (queryString, cb) {
         var restaurants = this.restaurants;
@@ -60,6 +69,12 @@
         this.state1 = item.value
         this.propervalue = item.value
         this.pk = item.pk_key
+        this.changeBrowser()
+      },
+      changeBrowser () {
+        if (this.type === 'base') {
+          this.$emit('listenInputChange', this.type, this.propertyname, this.pk)
+        }
       },
       openBrowser () {
         //         /test/customerVue/getBaseproperty.jsp
@@ -76,10 +91,29 @@
       },
       closeBrowser (e) {
         e = e.target || e.srcElement
+      },
+      getBrowserValue () {
+        if (this.defaultValue === '' || this.defaultValue === '~') {
+          this.propervalue = ''
+          this.pk = ''
+          return false
+        }
+        this.$http.get('/test/customerVue/getBasepropertyData.jsp?type=' + this.type + '&name=' + this.propertyname + '&value=' + this.defaultValue).then((res) => {
+          res = res.body
+          this.propervalue = res.value
+          this.pk = this.defaultValue
+        })
       }
     },
-    created () {
+    mounted () {
       this.propervalue = ''
+      this.pk = ''
+      this.getBrowserValue()
+    },
+    watch: {
+      defaultValue () {
+        this.getBrowserValue()
+      }
     }
   }
 </script>

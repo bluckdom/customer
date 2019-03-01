@@ -1,6 +1,6 @@
 <template>
   <span>
-    <el-button type="danger" icon="el-icon-minus" size="mini" circle @click="deletefun" v-if="!data.plus"></el-button>
+    <span v-if="!data.plus" class="morelinkman" @click="showlinkman">更多</span>
     <el-button type="primary" icon="el-icon-check" size="mini" circle v-if="data.plus" @click="SaveTr"></el-button>
     <el-button type="info" icon="el-icon-minus" size="mini" circle v-if="data.plus" style="margin: 5px 0 0 0" @click="deleteEmptyTr"></el-button>
   </span>
@@ -13,6 +13,9 @@
     },
     props: ['data', 'type'],
     methods: {
+      showlinkman () {
+        this.$emit('openLinkman', this.data)
+      },
       deletefun (e) {
         let path = e.path
         let len = path.length

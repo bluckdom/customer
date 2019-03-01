@@ -16,7 +16,21 @@
 .newCuswrapper{
   padding: 0 20px;
 }
-
+.newCuswrapper .filedinput .custnamebox .el-input__inner{
+  line-height: 30px;
+  height: 30px;
+  width: 250px;
+}
+.newCuswrapper .custnamespan{
+  font-size: 14px;
+}
+.custnadclose .el-icon-close{
+  padding: 5px;
+}
+.custnadclose .el-icon-close:hover{
+  color: #409EFF;
+  cursor: pointer;
+}
 .probox{
   display: inline-block;
   position: relative;
@@ -47,7 +61,7 @@
   border-color:#108ee9 ;
   color:#108ee9 ;
 }
-.newDetail .controls .el-icon-edit{
+.newDetail .controls .el-icon-edit,.syorg .el-icon-edit{
   width: 25px;
   height: 25px;
   line-height: 25px;
@@ -83,8 +97,8 @@ body .el-autocomplete-suggestion li{
 }
 .rowborder .customerinput,.el-table__row .customerinput{
   width: 100%;
-  font-size: 14px;
   text-shadow: none;
+  font-size: 14px;
   color: #000;
   border:1px solid #fff;
 }

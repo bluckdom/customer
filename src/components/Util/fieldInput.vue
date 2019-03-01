@@ -1,10 +1,11 @@
 <template>
   <div class="filedinput">
-    <input class="customerinput" v-if="!istextares" v-model="propervalue" @change="changeInput"/>
+    <input class="customerinput" v-if="!istextares" v-model="propervalue" @change="changeInput" :disabled="readonly"/>
     <el-input
       type="textarea"
-      autosize
+      :autosize="{ minRows: 3}"
       class="mt5"
+      resize="none"
       placeholder="请输入内容"
       v-model="propervalue"
       v-if="istextares"
@@ -18,7 +19,7 @@
         propervalue: ''
       }
     },
-    props: ['property', 'propertyname', 'type', 'data', 'istextares'],
+    props: ['property', 'propertyname', 'type', 'data', 'istextares', 'readonly'],
     methods: {
       changeInput (e) {
         let value = ''
