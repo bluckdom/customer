@@ -229,11 +229,6 @@
                   <filedinput :property="props.row.phone" propertyname="phone" ref="phone" :data="props.row" type="linkman"></filedinput>
                 </template>
               </el-table-column>
-              <el-table-column label="传真" width="">
-                <template slot-scope="props">
-                  <filedinput :property="props.row.fax" propertyname="fax" ref="fax" :data="props.row" type="linkman"></filedinput>
-                </template>
-              </el-table-column>
               <el-table-column label="邮件" width="">
                 <template slot-scope="props">
                   <filedinput :property="props.row.email" propertyname="email" ref="email" :data="props.row" type="linkman"></filedinput>
@@ -244,7 +239,7 @@
                   <filedinput :property="props.row.vjob" propertyname="vjob" ref="vjob" :data="props.row" type="linkman"></filedinput>
                 </template>
               </el-table-column>
-              <el-table-column  :render-header="addRowClickLinkman" width="40">
+              <el-table-column  :render-header="addRowClickLinkman" width="60">
                 <template slot-scope="props">
                   <delete-button :data="props.row" type="linkman" @openLinkman="openLinkman"></delete-button>
                 </template>
@@ -252,65 +247,7 @@
             </el-table>
           </el-tab-pane>
           <el-tab-pane label="联系记录" name="contact">
-            <div class="contact">
-              <div class="contactWrapper">
-              <el-input
-                class="contactcontent"
-                type="textarea"
-                placeholder="联系记录..."
-                :autosize="{ minRows: 3}"
-                resize="none"
-                v-model="contactcontent">
-              </el-input>
-              <div class="mt10 oh tr">
-                <el-select v-model="selectpklinkman" placeholder="请选择联系人" size="mini" clearable filterable>
-                  <el-option
-                    v-for="item in customer.linkman"
-                    :key="item.pk_linkman"
-                    :label="item.name"
-                    :value="item.pk_linkman">
-                  </el-option>
-                </el-select>
-                <el-select v-model="selectOrg" placeholder="请选择销售组织" size="mini" clearable filterable class="pl10">
-                  <el-option
-                    v-for="item in customer.custsale"
-                    :key="item.pk_orgkey"
-                    :label="item.pk_org"
-                    :value="item.pk_orgkey">
-                  </el-option>
-                </el-select>
-                <div class="nextdate">
-                  <el-date-picker
-                    v-model="nextdate"
-                    type="datetime"
-                    size="mini"
-                    placeholder="下次联系时间">
-                  </el-date-picker>
-                </div>
-                <el-button type="primary" size="mini" @click="newontact">发表</el-button>
-              </div>
-              <div class="contactlist" v-if="contactlist.length > 0">
-                <ul>
-                  <li v-for="pro in contactlist">
-                    <img :src="pro.img" class="mCS_img_loaded ab">
-                    <div class="contactDetail">
-                      <div class="oh userNameWrapper">
-                        <a class="userName">{{pro.name}}</a>联系了【<a>{{pro.linkname}}</a>】
-                        <a cklss="pk_org">{{pro.orgname}}</a>
-                      </div>
-                      <div class="contactcontent mt5">
-                        {{pro.contact}}
-                      </div>
-                      <div class="contactdate mt5">
-                        {{pro.date}}
-                        <span class="Cus_nextdatetime" v-if="pro.nextdate.length > 1">下次联系时间：<span class="nextdateinfo">{{pro.nextdate}}</span></span>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            </div>
+            <contact :customerid="customerid" :customer="customer"></contact>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -333,6 +270,7 @@
     import departree from './tree'
     import linkman from './myCusVue/linkManvue'
     import 'static/css/mycustomer.css'
+    import contact from './myCusVue/contact'
     export default {
       data () {
         return {
@@ -341,12 +279,7 @@
           temp: 'Y',
           showBaseMore: false,
           showlinkman: false,
-          pklinkman: '',
-          nextdate: '',
-          selectOrg: '',
-          contactcontent: '',
-          selectpklinkman: '',
-          contactlist: []
+          pklinkman: ''
         }
       },
       components: {
@@ -355,7 +288,8 @@
         'fieldSelect': fieldCheckbox,
         'deleteButton': deleteButton,
         'departree': departree,
-        'linkman': linkman
+        'linkman': linkman,
+        'contact': contact
       },
       created () {
         const that = this
@@ -384,77 +318,6 @@
       },
       props: ['customerid'],
       methods: {
-        newontact (type, id) {
-          if (this.contactcontent === '') {
-            this.$message({
-              type: 'error',
-              message: '输入联系记录!'
-            })
-            return false
-          }
-          if (this.selectpklinkman === '') {
-            this.$message({
-              type: 'error',
-              message: '请选择联系人!'
-            })
-            return false
-          }
-          if (this.selectOrg === '') {
-            this.$message({
-              type: 'error',
-              message: '请选择组织!'
-            })
-            return false
-          }
-          let nextdate = ''
-          let nexttime = ''
-          if (this.nextdate !== null && this.nextdate !== '') {
-            let year = this.nextdate.getFullYear();
-            let month = this.nextdate.getMonth() + 1;
-            month = month < 10 ? '0' + month : month
-            let day = this.nextdate.getDate();
-            day = day < 10 ? '0' + day : day
-            nextdate = year + '-' + month + '-' + day
-            let hour = this.nextdate.getHours()
-            hour = hour < 10 ? '0' + hour : hour
-            let minutes = this.nextdate.getMinutes()
-            minutes = minutes < 10 ? '0' + minutes : minutes
-            nexttime = hour + ':' + minutes
-          }
-          let data = {
-            contactcontent: this.contactcontent,
-            selectpklinkman: this.selectpklinkman,
-            selectOrg: this.selectOrg,
-            nextdate: nextdate,
-            nexttime: nexttime,
-            repltype: 0,
-            pk_customer: this.customerid
-          }
-          if (type === 1) {
-            data.repltype = 1
-            data.replyid = id
-          }
-          this.$http.post('/test/customerVue/linkman/postcontact.jsp', data).then((res) => {
-            res = res.body
-            const errno = res.errno
-            if (errno === 1) {
-              this.$message({
-                type: 'success',
-                message: '添加成功!'
-              })
-              this.getContact()
-              this.contactcontent = ''
-              this.selectpklinkman = ''
-              this.selectOrg = ''
-              this.nextdate = ''
-            } else {
-              this.$message({
-                type: 'error',
-                message: res.txt
-              })
-            }
-          })
-        },
         openLinkman (data) {
           this.pklinkman = data.pk_linkman
           this.showlinkman = true
@@ -520,7 +383,7 @@
           this.showBaseMore = false
           // /test/customerVue/custinfo.jsp
           // http://localhost/custinfo.json
-          this.$http.get('/test/customerVue/custinfo.jsp?pk=' + this.customerid).then((res) => {
+          this.$http.get('http://localhost/custinfo.json?pk=' + this.customerid).then((res) => {
             res = res.body
             const errno = res.errno
             if (errno === 1) {
@@ -529,13 +392,6 @@
               that.$message.error(res.txt);
             }
             that.loading = false
-          })
-          this.getContact()
-        },
-        getContact () {
-          this.$http.get('/test/customerVue/linkman/getcontact.jsp?pk=' + this.customerid).then((res) => {
-            res = res.body
-            this.contactlist = res
           })
         }
       },

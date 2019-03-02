@@ -375,11 +375,17 @@ input:focus{
   display: inline-block;
   padding: 0 10px ;
 }
+.contactlist{
+  min-height: 100px;
+}
 .contactlist li{
-  padding-top: 10px;
-  margin: 10px -15px 0;
+  padding: 10px 0;
+  margin: 0 -15px 0;
   border-top: 1px dashed #ddd;
   position: relative;
+}
+.contactlist li:hover{
+  background: #f7fdff;
 }
 .contactDetail{
   margin-left: 68px;
@@ -401,11 +407,16 @@ input:focus{
 .userNameWrapper a{
   color: #409EFF;
 }
+.userNameWrapper a:hover{
+  color: #fb6e52;
+  cursor: pointer;
+}
 .userName{
   padding: 0 5px;
 }
 .contactdate{
   color: #999;
+  font-size: 12px;
 }
 .Cus_nextdatetime{
   padding-left: 20px;

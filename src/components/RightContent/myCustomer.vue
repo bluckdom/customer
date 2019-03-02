@@ -61,7 +61,7 @@ export default {
       this.currentPage = page
       // /test/customerVue/customerList.jsp
       // http://localhost/List.json
-      this.$http.get('/test/customerVue/customerList.jsp?page=' + page + '&name=' + this.cusname + '&org=' + this.saleorg + '&psndoc=' + this.psndoc).then(res => {
+      this.$http.get('http://localhost/List.json?page=' + page + '&name=' + this.cusname + '&org=' + this.saleorg + '&psndoc=' + this.psndoc).then(res => {
         const that = this
         this.count = res.body.num
         res = res.body.cust
